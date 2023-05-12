@@ -1,0 +1,145 @@
+/*The ATM functionalities:
+project performs-
+1)Deposit
+2)Withdraw
+3)Transfer
+4)Balance
+5)History
+6)Quit */
+
+import java.util.Scanner;
+public class project{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean isUserAuthenticated = false;
+        int Accountnumber=2753;
+        String Username="ayush_27";
+        int userPin=5420;
+        int Transactionpin=2729;
+
+        int choice;
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("BANK OF KOTA");
+        
+       
+        while (!isUserAuthenticated) {
+            System.out.print("Bank Account number: \n");
+            int enteredId = scanner.nextInt();
+            System.out.print("ENTER PIN: \n");
+            int enteredPin = scanner.nextInt();
+            
+            if (enteredId == Accountnumber && enteredPin == userPin) {
+                isUserAuthenticated = true;
+                System.out.println("\n\n WELCOME "+Username);
+            } else {
+                System.out.println("Invalid entry,Retry");
+            }
+        }
+        int balance=0;
+        String[] transaction=new String[50];
+        int t=0;
+        do
+        {
+            System.out.println("\nPlease select an option:");
+            System.out.println("1. Deposit\n");
+            System.out.println("2. Withdraw\n");
+            System.out.println("3. Transfer\n");
+            System.out.println("4. Balance\n");
+            System.out.println("5. History\n");
+            System.out.println("6. Quit\n");
+            System.out.print("Enter choice: ");
+            
+            choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter amount to deposit: ");
+                    int depositAmount = scanner.nextInt();
+                    
+                    System.out.println("Depositing " + depositAmount + "...");
+                    balance+=depositAmount;
+                    transaction[t]="Depositing"+"\t"+String.valueOf(depositAmount);
+                    t+=1;
+                    
+                    System.out.println("Your Current Balance is :"+balance);
+                    break;
+                    
+                case 2:
+                    System.out.print("Enter amount to withdraw: ");
+                    
+                    int withdrawAmount = scanner.nextInt();
+                    if(withdrawAmount>balance)
+                    {
+                        System.out.println("insufficient Balance");
+                        break;
+                    }
+                    
+                    System.out.println("Withdrawing " + withdrawAmount + "...");
+                    balance-=withdrawAmount;
+                    transaction[t]="Withdrawing"+"\t"+String.valueOf(withdrawAmount);
+                    t+=1;
+                    
+                    System.out.println("Current Balance is :"+balance);
+                    break;
+				case 3:
+					//transfer module
+				    System.out.print("Enter amount to transfer: ");
+				    int transferAmount = scanner.nextInt();
+				    
+				    System.out.print("Enter recipient's account number: ");
+				    int recipientAccount = scanner.nextInt();
+					
+					System.out.print("Enter transaction pin: ");
+				    int transactionpin= scanner.nextInt();
+					
+					if(transactionpin==Transactionpin)
+					{
+				    
+				    System.out.println("TRANSFER TO BANK OF BARODA");
+				    
+				    if (transferAmount > balance) {
+				        System.out.println("Insufficient balance\n");
+				        break;
+				    }
+				    
+				    System.out.println("Transferring..... " + transferAmount + " to account " + recipientAccount + "...");
+				    balance -= transferAmount;
+				    transaction[t] = "Withdrawing" + "\t" + String.valueOf(transferAmount);
+				    t = 1;
+				    
+				    System.out.println("Current Balance is: " + balance);
+					}else
+					{
+						System.out.println("Invalid transaction pin!");
+					}
+				    break;
+
+                case 4:
+                	System.out.println("Current Balance is :"+balance);
+                	break;
+                	
+                case 5:
+				    if (t == 0) {
+				        System.out.println("\nNo History\n");
+				        break;
+				    }
+				    for (int i = 0; i < t; i++) {
+				        System.out.println(transaction[i] + "\n");
+				    }
+				    break;
+				                    
+                case 6:
+                    System.out.println("Thanks for visiting");
+                    break;
+                
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } 
+        while (choice != 6);
+        scanner.close();
+    }
+}
+
